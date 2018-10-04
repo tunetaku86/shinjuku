@@ -17,6 +17,7 @@ public class MemberBean implements Serializable{
 		this.tel = tel;
 		this.email = email;
 		this.birth = birth;
+		
 	}
 
 	public MemberBean() {
