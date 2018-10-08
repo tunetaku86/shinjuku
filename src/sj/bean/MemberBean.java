@@ -1,28 +1,48 @@
 package sj.bean;
 
 import java.io.Serializable;
+import java.sql.Date;
+
 
 public class MemberBean implements Serializable{
 
+	private int id;
 	private String name;
 	private String address;
 	private String tel;
 	private String email;
-	private String birth;
+	private Date birthday;
+	private Date admission;
+	private Date unsubscribe;
+	private String remarks;
 
-	public MemberBean(String name, String address, String tel, String email, String birth) {
+
+
+	public MemberBean() {
 		super();
+
+	}
+
+	public MemberBean(int id, String name, String address, String tel, String email, Date birthday, Date admission,
+			Date unsubscribe, String remarks) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.tel = tel;
 		this.email = email;
-		this.birth = birth;
-		
+		this.birthday = birthday;
+		this.admission = admission;
+		this.unsubscribe = unsubscribe;
+		this.remarks = remarks;
 	}
 
-	public MemberBean() {
-		super();
-		// TODO 自動生成されたコンストラクター・スタブ
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -57,18 +77,35 @@ public class MemberBean implements Serializable{
 		this.email = email;
 	}
 
-	public String getBirth() {
-		return birth;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setBirth(String birth) {
-		this.birth = birth;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
+	public Date getAdmission() {
+		return admission;
+	}
 
+	public void setAdmission(Date admission) {
+		this.admission = admission;
+	}
 
+	public Date getUnsubscribe() {
+		return unsubscribe;
+	}
 
+	public void setUnsubscribe(Date unsubscribe) {
+		this.unsubscribe = unsubscribe;
+	}
 
+	public String getRemarks() {
+		return remarks;
+	}
 
-
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 }
