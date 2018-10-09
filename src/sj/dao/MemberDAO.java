@@ -81,7 +81,7 @@ public class MemberDAO {
 
 		try {
 			//SQL文の作成
-			String sql = "SELECT * FROM member";
+			String sql = "SELECT * FROM member ORDER BY id";
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			// SQLの実行
@@ -259,7 +259,7 @@ public class MemberDAO {
 			}
 		}
 	}
-	//退会
+	//会員情報の変更
 	public MemberBean updateMember(int id,String name,String address,String tel,String email,Date birthday,          Date admission,Date unsubscribe,String remarks) throws DAOException {
 		if (con == null)
 			getConnection();
@@ -267,6 +267,16 @@ public class MemberDAO {
 		PreparedStatement st = null;
 		try {
 			String sql = "UPDATE member set "
+					+"name = COALESCE(?,name), "
+					+"address = COALESCE(?,address), "
+					+"tel = COALESCE(?,tel), "
+					+"email = COALESCE(?,email), "
+					+"birthday = ?, "
+					+"admission = ?, "
+					+"unsubscribe = ?, "
+					+"remarks = COALESCE(?,remarks) "
+					+"WHERE id = ?";
+			/* String sql = "UPDATE member set "
 												+"name = COALESCE(?,name), "
 												+"address = COALESCE(?,address), "
 												+"tel = COALESCE(?,tel), "
@@ -276,7 +286,7 @@ public class MemberDAO {
 												+"unsubscribe = COALESCE(?,unsubscribe), "
 												+"remarks = COALESCE(?,remarks) "
 												+"WHERE id = ?";
-
+			*/
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			// カテゴリの設定

@@ -20,9 +20,9 @@
 <h1>会員管理画面</h1>
 <br>
 <form action="/shinjuku/MemberServlet" method="get">
-<p align="right">
+
 <button type="submit" name = "action" value="return">戻る</button>
-<button type = "submit" name="action" value="member_new">新規登録</button></p>
+<button type = "submit" name="action" value="member_new">新規登録</button>
 </form>
 <br>
 <h2>検索</h2>

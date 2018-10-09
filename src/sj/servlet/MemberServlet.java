@@ -188,6 +188,9 @@ public class MemberServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	private static java.sql.Date convDate(String str) throws ParseException{
+		if (str == "") {
+			return null;
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date d = sdf.parse(str);
 		return new java.sql.Date(d.getTime());

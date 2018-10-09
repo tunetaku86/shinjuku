@@ -32,7 +32,7 @@ function check(){
 <form action ="/shinjuku/MemberServlet" method= "get" onSubmit="return check()">
 <c:forEach items="${members}" var="member">
 <table border=1>
-<tr><th>ID</th><td><input type = "text" name="id" value="${member.id}" size="80"></td></tr>
+<tr><th>ID</th><td><input type = "hidden" name="id" value="${member.id}" size="80">${member.id}</td></tr>
 <tr><th>名前</th><td><input type = "text" name="name" value="${member.name}" size="80"></td></tr>
 <tr><th>住所</th><td><input type = "text" name="address" value="${member.address}" size="80"></td></tr>
 <tr><th>TEL</th><td><input type = "text" name="tel" value="${member.tel} "size="80"></td></tr>
@@ -40,9 +40,9 @@ function check(){
 <!--生年月日：<input type = "text" name ="year" size="5">年
 <input type = "text" name ="month" size="5">月
 <input type = "text" name ="date" size="5">日<br><br>-->
-<tr><th>生年月日</th><td><input type = "Date" name ="birth" value="${member.birthday}" size="80"></td></tr>
-<tr><th>入会年月日</th><td><input type = "Date" name ="admin" value="${member.admission}" size="80"></td></tr>
-<tr><th>退会年月日</th><td><input type = "Date" name ="unsu" value="${member.unsubscribe}" size="80"></td></tr>
+<tr><th>生年月日</th><td><input type = "Date" name ="birthday" value="${member.birthday}" size="80"></td></tr>
+<tr><th>入会年月日</th><td><input type = "Date" name ="admission" value="${member.admission}" size="80"></td></tr>
+<tr><th>退会年月日</th><td><input type = "Date" name ="unsubscribe" value="${member.unsubscribe}" size="80"></td></tr>
 <tr><th>備考：</th><td><input type="text" name="remarks" value="${member.remarks}" size="80"></td></tr>
 </table>
 <hr>
