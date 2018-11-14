@@ -48,7 +48,7 @@ public class MemberServlet extends HttpServlet {
 			String action = request.getParameter("action");
 
 				//パラメータなしの場合,戻るの場合はトップページを表示
-			if(action == null||action.length() == 0||action.equals("return")){
+			if(action == null||action.length() == 0||action.equals("top_return")){
 					gotoPage(request,response,"/index.jsp");
 
 			}else if(action.equals("member_new")){
@@ -56,7 +56,7 @@ public class MemberServlet extends HttpServlet {
 
 			}else if(action.equals("serch")){
 					gotoPage(request, response, "/UI101management.jsp");
-				//トップに戻る
+				//会員画面に戻る
 			}else if (action.equals("return")) {
 				gotoPage(request, response, "/index.jsp");
 
@@ -120,15 +120,24 @@ public class MemberServlet extends HttpServlet {
 					gotoPage(request, response, "/UI101management.jsp");
 
 			}else if (action.equals("information")) {
-					//IDクリックから登録内容の変更確認
+					//IDクリックから会員情報の確認
 					int id = Integer.parseInt(request.getParameter("id"));
 
 					MemberManager mgr = new MemberManager();
 					List<MemberBean> list = mgr.searchMemberById(id);
 					request.setAttribute("members", list);
-					gotoPage(request, response, "/change.jsp");
+					gotoPage(request, response, "/UI102information.jsp");
 
-			} else if (action.equals("regist_change")) {
+			}else if (action.equals("change")) {
+				//会員情報変更画面へ遷移
+				int id = Integer.parseInt(request.getParameter("id"));
+
+				MemberManager mgr = new MemberManager();
+				List<MemberBean> list = mgr.searchMemberById(id);
+				request.setAttribute("members", list);
+				gotoPage(request, response, "/change.jsp");
+
+		}else if (action.equals("regist_change")) {
 					//会員情報の変更
 
 				int id = Integer.parseInt(request.getParameter("id"));
@@ -145,6 +154,26 @@ public class MemberServlet extends HttpServlet {
 				request.setAttribute("updatemember", updateBean);
 				gotoPage(request, response, "/UI101management.jsp");
 
+		}else if (action.equals("unsubscribeMember")) {
+				//会員の退会
+
+				int id = Integer.parseInt(request.getParameter("id"));
+
+
+				MemberManager mgr = new MemberManager();
+				MemberBean uncubscribemember = mgr. deleteMemberInfo(id);
+				request.setAttribute("uncubscribemember", uncubscribemember);
+				gotoPage(request, response, "/index.jsp");
+
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
+			gotoPage(request,response,"/errInternal.jsp");
+
+
+		}
+
 				/*HttpSession session = request.getSession();
 				int id = Integer.parseInt(request.getParameter("id"));
 				String name = request.getParameter("name");
@@ -159,18 +188,6 @@ public class MemberServlet extends HttpServlet {
 				MemberBean updatehbean = mgr.updateMemberInfo(id,name,address,tel,email,birthday,admission,unsubscribe,remarks);
 				session.setAttribute("updateMember",updatehbean);
 				gotoPage(request, response, "/UI101management.jsp");*/
-			}
-
-
-
-
-			}catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("message", "内部エラーが発生しました。");
-			gotoPage(request,response,"/errInternal.jsp");
-
-
-		}
 
 	}
 		private void gotoPage(HttpServletRequest request,HttpServletResponse response,String page)throws ServletException,

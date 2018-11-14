@@ -20,8 +20,6 @@ public class MemberDAO {
 		getConnection();
 	}
 	//新規会員登録
-	//insertMember(String name, String address, String tel, String email, Date birthday, Date admission,
-	//Date unsubscribe, String remarks)
 	public MemberBean insertMember(String name, String address, String tel, String email, Date birthday, Date admission,
 			Date unsubscribe, String remarks) throws DAOException {
 		if (con == null)
@@ -30,7 +28,7 @@ public class MemberDAO {
 		try {
 			id = getNextId(con, "member_id_seq");
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
+
 			e.printStackTrace();
 		}
 
@@ -88,7 +86,7 @@ public class MemberDAO {
 			rs = st.executeQuery();
 			// 結果の取得および表示
 			List<MemberBean> list = new ArrayList<MemberBean>();
-			while (rs.next()) {
+			while (rs.next()) { //next()メソッドは一行ずつ呼び出す・データがなくなるとfalseを渡すのでwhile文を抜ける
 			MemberBean bean = new MemberBean(
 									rs.getInt("id"),
 									rs.getString("name"),
@@ -116,54 +114,53 @@ public class MemberDAO {
 					}
 	}
 	//検索(名前)
-	//findMemberByName(String name)
-	public List<MemberBean> findMemberByName(String name) throws DAOException {
-		if (con == null)
-			getConnection();
+		//findMemberByName(String name)
+		public List<MemberBean> findMemberByName(String name) throws DAOException {
+			if (con == null)
+				getConnection();
 
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			String sql = "SELECT id, name, address, tel, email, birthday, admission, unsubscribe, remarks "
-							+ "FROM member WHERE name LIKE ?";
-
-			// PreparedStatementオブジェクトの取得
-			st = con.prepareStatement(sql);
-			// カテゴリの設定
-			st.setString(1,"%" + name + "%");
-			// SQLの実行
-			rs = st.executeQuery();
-			// 結果の取得および表示
-			List<MemberBean> list = new ArrayList<MemberBean>();
-			while (rs.next()) {
-				MemberBean bean = new MemberBean(
-						rs.getInt("id"),
-						rs.getString("name"),
-						rs.getString("address"),
-						rs.getString("tel"),
-						rs.getString("email"),
-						rs.getDate("birthday"),
-						rs.getDate("admission"),
-						rs.getDate("unsubscribe"),
-						rs.getString("remarks"));
-				list.add(bean);
-
-			}	return list;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
-		} finally {
+			PreparedStatement st = null;
+			ResultSet rs = null;
 			try {
-				// リソースの開放
-				if(rs != null) rs.close();
-				if(st != null) st.close();
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの開放に失敗しました。");
+				String sql = "SELECT id, name, address, tel, email, birthday, admission, unsubscribe, remarks "
+								+ "FROM member WHERE name LIKE ?";
+
+				// PreparedStatementオブジェクトの取得
+				st = con.prepareStatement(sql);
+				// カテゴリの設定
+				st.setString(1,"%" + name + "%");
+				// SQLの実行
+				rs = st.executeQuery();
+				// 結果の取得および表示
+				List<MemberBean> list = new ArrayList<MemberBean>();
+				while (rs.next()) {
+					MemberBean bean = new MemberBean(
+							rs.getInt("id"),
+							rs.getString("name"),
+							rs.getString("address"),
+							rs.getString("tel"),
+							rs.getString("email"),
+							rs.getDate("birthday"),
+							rs.getDate("admission"),
+							rs.getDate("unsubscribe"),
+							rs.getString("remarks"));
+					list.add(bean);
+
+				}	return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
+			} finally {
+				try {
+					// リソースの開放
+					if(rs != null) rs.close();
+					if(st != null) st.close();
+					close();
+				} catch (Exception e) {
+					throw new DAOException("リソースの開放に失敗しました。");
+				}
 			}
-		}
-	}
-	//検索(tel)
+		}	//検索(tel)
 	//findMemberByTel(String tel)
 	public List<MemberBean> findMemberByTel(String tel) throws DAOException {
 		if (con == null)
@@ -260,20 +257,20 @@ public class MemberDAO {
 		}
 	}
 	//会員情報の変更
-	public MemberBean updateMember(int id,String name,String address,String tel,String email,Date birthday,          Date admission,Date unsubscribe,String remarks) throws DAOException {
+	public MemberBean updateMember(int id,String name,String address,String tel,String email,Date birthday, Date admission,Date unsubscribe,String remarks) throws DAOException {
 		if (con == null)
 			getConnection();
 
 		PreparedStatement st = null;
 		try {
-			String sql = "UPDATE member set "
+			String sql = "UPDATE member SET "
 					+"name = COALESCE(?,name), "
 					+"address = COALESCE(?,address), "
 					+"tel = COALESCE(?,tel), "
 					+"email = COALESCE(?,email), "
-					+"birthday = ?, "
-					+"admission = ?, "
-					+"unsubscribe = ?, "
+					+"birthday = COALESCE(?,birthday), "
+					+"admission = COALESCE(?,admission), "
+					+"unsubscribe = COALESCE(?,unsubscribe),"
 					+"remarks = COALESCE(?,remarks) "
 					+"WHERE id = ?";
 			/* String sql = "UPDATE member set "
@@ -316,6 +313,44 @@ public class MemberDAO {
 	}
 		return null;
 	}
+
+
+
+	//*会員の退会*//
+	public MemberBean unsubscribeMember(int id) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		try {
+			String sql = "UPDATE member SET "
+						+ "unsubscribe = CURRENT_TIMESTAMP "
+						+ "WHERE id = ?";
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+
+			st.setInt(1, id);
+
+			// SQLの実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if(st != null) st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+		return null;
+
+	}
+
+
 
 	private void getConnection() throws DAOException {
 		try {

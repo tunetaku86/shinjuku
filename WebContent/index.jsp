@@ -10,14 +10,14 @@
 </head>
 <body>
 	<h1>新宿図書館　管理システム</h1>
-	<a href="/shinjuku/MemberServlet?action=return">トップメニューに戻る</a>
+	<a href="/shinjuku/MemberServlet?action=top_return">トップメニューに戻る</a>
 	<br>
 	<h3>会員管理</h3>
 	<a href="/shinjuku/MemberServlet?action=serch">検索</a>
 	<a href="/shinjuku/MemberServlet?action=member_new">登録</a>
 	<br>
 	<h3>資料管理</h3>
-	<a href="/shinjuku/BookServlet?action=serch">検索</a>
+	<a href="/shinjuku/BookServlet?action=book_serch">検索</a>
 	<a href="/shinjuku/BookServlet?action=regist">登録</a>
 
 	<a href="/shinjuku/BookServlet?action=lend">貸出</a>

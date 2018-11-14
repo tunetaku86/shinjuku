@@ -37,12 +37,19 @@ function check(){
 <tr><th>住所</th><td><input type = "text" name="address" value="${member.address}" size="80"></td></tr>
 <tr><th>TEL</th><td><input type = "text" name="tel" value="${member.tel} "size="80"></td></tr>
 <tr><th>Emai</th><td><input type="text" name="email" value="${member.email}" size="80"></td></tr>
-<!--生年月日：<input type = "text" name ="year" size="5">年
-<input type = "text" name ="month" size="5">月
-<input type = "text" name ="date" size="5">日<br><br>-->
+<tr><th>生年月日</th><td><input type = "text" name="birthday" value="${member.birthday}" size="80"></td></tr>
+<tr><th>入会年月日</th><td><input type = "text" name ="admission" value="${member.admission}" size="80"></td></tr>
+
+
+<!--	生年月日、入会年月日の変更処理は通常考えられるケースがないため実装しない。
+		退会年月日の変更は退会処理にて行うため、会員情報の変更では行わない。
+
 <tr><th>生年月日</th><td><input type = "Date" name ="birthday" value="${member.birthday}" size="80"></td></tr>
 <tr><th>入会年月日</th><td><input type = "Date" name ="admission" value="${member.admission}" size="80"></td></tr>
 <tr><th>退会年月日</th><td><input type = "Date" name ="unsubscribe" value="${member.unsubscribe}" size="80"></td></tr>
+
+-->
+
 <tr><th>備考：</th><td><input type="text" name="remarks" value="${member.remarks}" size="80"></td></tr>
 </table>
 <hr>

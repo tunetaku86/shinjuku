@@ -21,8 +21,8 @@
 <br>
 <form action="/shinjuku/MemberServlet" method="get">
 
-<button type="submit" name = "action" value="return">戻る</button>
-<button type = "submit" name="action" value="member_new">新規登録</button>
+<a href="/shinjuku/MemberServlet?action=top_return">トップメニューに戻る</a><br><br>
+<button type = "submit" name="action" value="member_new">新規会員登録</button>
 </form>
 <br>
 <h2>検索</h2>

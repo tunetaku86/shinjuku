@@ -11,12 +11,6 @@ import sj.dao.MemberDAO;
 
 
 public class MemberManager {
-	// 全てのメンバの情報を取得
-		public List<MemberBean> findMemberAll() throws DAOException {
-			MemberDAO dao = new MemberDAO();
-			return dao.findAllMember();
-
-		}
 
 		// 会員情報を登録する
 		public MemberBean registerMember(String name, String address, String tel, String email, Date birthday,
@@ -25,6 +19,12 @@ public class MemberManager {
 			return dao.insertMember(name, address, tel, email, birthday, admission, unsubscribe, remarks);
 		}
 
+		// 全てのメンバの情報を取得
+		public List<MemberBean> findMemberAll() throws DAOException {
+			MemberDAO dao = new MemberDAO();
+			return dao.findAllMember();
+
+		}
 		// IDで会員を検索する
 			public List<MemberBean> searchMemberById(int id) throws DAOException {
 				MemberDAO dao = new MemberDAO();
@@ -49,12 +49,21 @@ public class MemberManager {
 			MemberDAO dao = new MemberDAO();
 			return dao.updateMember(id, name, address, tel, email, birthday, admission, unsubscribe, remarks);
 		}
-		
+
+		//会員を退会する
+		public MemberBean deleteMemberInfo(int id) throws DAOException{
+			MemberDAO dao = new MemberDAO();
+			return dao.unsubscribeMember(id);
+		}
+
+
 		public static java.sql.Date convDate(String str) throws ParseException{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date d = sdf.parse(str);
 			return new java.sql.Date(d.getTime());
 		}
+
+
 
 	}
 
