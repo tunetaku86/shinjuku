@@ -20,7 +20,7 @@ public class BookDAO {
 	}
 //登録
 		//資料を新規で登録する
-	public BookBean insertBook(long isbn, String name, int catcode, String author, String publisher, Date pubdate,
+	public BookBean insertBook(String isbn, String name, int catcode, String author, String publisher, Date pubdate,
 			String coverurl) throws DAOException{
 		if (con == null)
 			getConnection();
@@ -28,12 +28,12 @@ public class BookDAO {
 
 		try {
 			//SQL文の作成
-			String sql = "INSERT INTO bookinfo(isbn, name, catcode, author, publisher, pubdate, coverurl)"
+			String sql = "INSERT INTO bookinfo(isbn, name, catcode, author, publisher, pubdate, coverurl) "
 						+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
 			//PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			//カテゴリの設定
-			st.setLong(1, isbn);
+			st.setString(1, isbn);
 			st.setString(2, name);
 			st.setInt(3, catcode);
 			st.setString(4, author);
@@ -73,7 +73,7 @@ public class BookDAO {
 			List<BookBean> list = new ArrayList<BookBean>();
 			while (rs.next()) {
 				BookBean bean = new BookBean(
-						rs.getLong("isbn"),
+						rs.getString("isbn"),
 						rs.getString("name"),
 						rs.getInt("catcode"),
 						rs.getString("author"),
@@ -98,30 +98,209 @@ public class BookDAO {
 	}
 
 		// isbnで資料検索
-	public List<BookBean> findBookByISBN(long isbn) {
-		return null;
+	public List<BookBean> findBookByISBN(String isbn) throws DAOException{
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st= null;
+		ResultSet rs = null;
+
+		try {
+			//SQL文の作成
+			String sql = "SELECT * FROM bookinfo "
+							+ "WHERE isbn LIKE ?";
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			//カテゴリの設定
+			st.setString(1, "%" + isbn + "%");
+			//SQL文の実行
+			rs = st.executeQuery();
+			//結果の取得、表示
+			List<BookBean> list = new ArrayList<BookBean>();
+
+				while (rs.next()) {
+					BookBean bean = new BookBean(
+							rs.getString("isbn"),
+							rs.getString("name"),
+							rs.getInt("catcode"),
+							rs.getString("author"),
+							rs.getString("publisher"),
+							rs.getDate("pubdate"),
+							rs.getString("coverurl"));
+					list.add(bean);
+				}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+				close();
+
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました");
+			}
+		}
+
 	}
 
 
 
-	public List<BookBean> findBookByName(String name) {
-		// TODO 名前で検索
-		return null;
+	public List<BookBean> findBookByName(String name) throws DAOException{
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st= null;
+		ResultSet rs = null;
+
+		try {
+			//SQL文の作成
+			String sql = "SELECT * FROM bookinfo "
+							+ "WHERE name LIKE ?";
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			//カテゴリの設定
+			st.setString(1, "%" + name + "%");
+			//SQL文の実行
+			rs = st.executeQuery();
+			//結果の取得、表示
+			List<BookBean> list = new ArrayList<BookBean>();
+
+				while (rs.next()) {
+					BookBean bean = new BookBean(
+							rs.getString("isbn"),
+							rs.getString("name"),
+							rs.getInt("catcode"),
+							rs.getString("author"),
+							rs.getString("publisher"),
+							rs.getDate("pubdate"),
+							rs.getString("coverurl"));
+					list.add(bean);
+				}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+				close();
+
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました");
+			}
+		}
 	}
 
 
 
-	public List<BookBean> findBookByauthor(String author) {
-		// 作者で検索
-		return null;
+	public List<BookBean> findBookByauthor(String author) throws DAOException{
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st= null;
+		ResultSet rs = null;
+
+		try {
+			//SQL文の作成
+			String sql = "SELECT * FROM bookinfo "
+							+ "WHERE author LIKE ?";
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			//カテゴリの設定
+			st.setString(1, "%" + author + "%");
+			//SQL文の実行
+			rs = st.executeQuery();
+			//結果の取得、表示
+			List<BookBean> list = new ArrayList<BookBean>();
+
+				while (rs.next()) {
+					BookBean bean = new BookBean(
+							rs.getString("isbn"),
+							rs.getString("name"),
+							rs.getInt("catcode"),
+							rs.getString("author"),
+							rs.getString("publisher"),
+							rs.getDate("pubdate"),
+							rs.getString("coverurl"));
+					list.add(bean);
+				}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+				close();
+
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました");
+			}
+		}
 	}
 
 
 
-	public List<BookBean> findBookBypublisher(String publisher) {
-		//出版社で検索
-		return null;
+	public List<BookBean> findBookBypublisher(String publisher) throws DAOException{
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st= null;
+		ResultSet rs = null;
+
+		try {
+			//SQL文の作成
+			String sql = "SELECT * FROM bookinfo "
+							+ "WHERE publisher LIKE ?";
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			//カテゴリの設定
+			st.setString(1, "%" + publisher + "%");
+			//SQL文の実行
+			rs = st.executeQuery();
+			//結果の取得、表示
+			List<BookBean> list = new ArrayList<BookBean>();
+
+				while (rs.next()) {
+					BookBean bean = new BookBean(
+							rs.getString("isbn"),
+							rs.getString("name"),
+							rs.getInt("catcode"),
+							rs.getString("author"),
+							rs.getString("publisher"),
+							rs.getDate("pubdate"),
+							rs.getString("coverurl"));
+					list.add(bean);
+				}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+				close();
+
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました");
+			}
+		}
 	}
+
 
 
 //ソート

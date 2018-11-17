@@ -13,7 +13,7 @@ import sj.dao.DAOException;
 public class BookManager {
 	//登録
 			//資料を新規で登録する
-				public BookBean registBook(long isbn, String name, int catcode, String author, String publisher, Date pubdate,
+				public BookBean registBook(String isbn, String name, int catcode, String author, String publisher, Date pubdate,
 											String coverurl)throws DAOException {
 					BookDAO dao = new BookDAO();
 					return  dao.insertBook(isbn, name, catcode, author, publisher, pubdate,coverurl);
@@ -26,7 +26,7 @@ public class BookManager {
 				}
 	//検索
 			//ISBNで資料を検索する
-				public List<BookBean> searchBookByISBN(long isbn) throws DAOException {
+				public List<BookBean> searchBookByISBN(String isbn) throws DAOException {
 					BookDAO dao = new BookDAO();
 					return dao.findBookByISBN(isbn);
 				}

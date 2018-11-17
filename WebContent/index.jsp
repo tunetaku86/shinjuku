@@ -18,7 +18,7 @@
 	<br>
 	<h3>資料管理</h3>
 	<a href="/shinjuku/BookServlet?action=book_serch">検索</a>
-	<a href="/shinjuku/BookServlet?action=regist">登録</a>
+	<a href="/shinjuku/BookServlet?action=book_new">登録</a>
 
 	<a href="/shinjuku/BookServlet?action=lend">貸出</a>
 	<a href="/shinjuku/BookServlet?action=return">返却</a>

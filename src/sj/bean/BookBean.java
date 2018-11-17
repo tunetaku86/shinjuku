@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class BookBean implements Serializable {
 
-	private long isbn;
+	private String isbn;
 	private String name;
 	private int catcode;
 	private String author;
@@ -17,7 +17,7 @@ public class BookBean implements Serializable {
 		super();
 	}
 
-	public BookBean(long isbn, String name, int catcode, String author, String publisher, Date pubdate,
+	public BookBean(String isbn, String name, int catcode, String author, String publisher, Date pubdate,
 			String coverurl) {
 		super();
 		this.isbn = isbn;
@@ -29,11 +29,11 @@ public class BookBean implements Serializable {
 		this.coverurl = coverurl;
 	}
 
-	public long getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(long isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

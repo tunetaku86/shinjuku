@@ -43,13 +43,13 @@ ISBN:<input type="text"name="isbn">
 </form>
 
 <form action="/shinjuku/BookServlet" method="get">
-作者:<input type="text"name="tel"size="30">
+作者:<input type="text"name="author"size="30">
 <input type="submit"  value="検索"><br><br>
 <input type="hidden" name="action" value="author_search">
 </form><br><br>
 
 <form action="/shinjuku/BookServlet" method="get">
-出版社:<input type="text"name="tel"size="30">
+出版社:<input type="text"name="publisher"size="30">
 <input type="submit"  value="検索"><br><br>
 <input type="hidden" name="action" value="publisher_search">
 </form><br><br>
@@ -62,7 +62,7 @@ ISBN:<input type="text"name="isbn">
 <table border="1">
 	<tr><th>ISBN</th><th>書籍名</th><th>カテゴリーCD</th><th>作者名</th><th>出版社</th><th>登録日</th><th>画像URL</th></tr>
 	<c:forEach items="${books}" var="book">
-		<tr><td><a href="/shinjuku/MemberServlet?action=information&id=${book.isbn}">${book.isbn}</a></td><td>${book.name}</td><td>${book.catcode}</td><td>${book.author}</td><td>${book.publisher}</td><td>${book.pubdate}</td><td>${book.coverurl}</td></tr>
+		<tr><td><a href="/shinjuku/BookServlet?action=information&isbn=${book.isbn}">${book.isbn}</a></td><td>${book.name}</td><td>${book.catcode}</td><td>${book.author}</td><td>${book.publisher}</td><td>${book.pubdate}</td><td>${book.coverurl}</td></tr>
 	</c:forEach>
 </table>
 </body>
